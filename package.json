@@ -1,0 +1,17 @@
+{
+  "name": "scoreless-highlights",
+  "version": "1.0.0",
+  "description": "See scoreless sports highlights from YT. No need to search up the highlights and accidentally see the scores, ruining all the fun.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jason Zhao",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.4",
+    "nodemon": "^2.0.15"
+  }
+}

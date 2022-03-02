@@ -1,0 +1,5 @@
+
+  // need to get today's date somehow.
+  // can eventually add option to specify date (and add a built in range, dont look past 1 week past current date)
+  // change port to heroku port once launched
+  // need to start at 1 second in to avoid thumbnail from showing
