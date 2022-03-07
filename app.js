@@ -16,7 +16,7 @@ function getDate(){
   return weekBeforeDate.toISOString();
 }
 
-app.listen(process.env.PORT, ()=>{console.log("server listening")});
+app.listen(process.env.PORT || 3000, ()=>{console.log("server listening")});
 
 app.route("/")
 
@@ -41,8 +41,25 @@ app.route("/video")
     publishedAfter: dateLimit
   }).then((response)=>{
     const videoId = response.data.items[0].id.videoId;
-    const redirectUrl = "https://www.youtube.com/watch?v=" + videoId + "&t=1";
-    res.redirect(redirectUrl);
+    console.log("video id is : " + videoId);
+    return videoId;
+  }).then((videoId)=>{
+    google.youtube('v3').videos.list({
+      key: process.env.YT_TOKEN,
+      id: videoId,
+      part: "contentDetails"
+    }).then((response)=>{
+      let minuteDuration = response.data.items[0].contentDetails.duration;
+      minuteDuration = minuteDuration.substring(2, minuteDuration.indexOf("M"));
+      return minuteDuration;
+    }).then((minuteDuration)=>{
+      if (Number(minuteDuration) > 8) {
+        const redirectUrl = "https://www.youtube.com/watch?v=" + videoId + "&t=1";
+        res.redirect(redirectUrl);
+      } else {
+        res.send("no videos found");
+      }
+    })
   }).catch((err)=>{console.log(err)});
 
 });
